@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blogum</title>
+
+    <style>
+        body{
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(55, 55, 55);
+            padding: 10px;
+            font-weight: 520;
+        }
+
+        #nums{
+            display: flex;
+            justify-content: center;
+            align-items: centers;
+        }
+
+        .num{
+            background-color: burlywood;
+            width: 200px;
+            border-style: none;
+            border-radius: 5px;
+            padding: 20px;
+            color: whitesmoke;
+            font-size: 25px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-inline: 10px;
+            transition: 1s;
+            cursor:not-allowed;
+            user-select: none;
+        }
+
+        .num:hover{
+            background-color: rgb(183, 151, 110);
+            transition: 1s;
+        }
+
+        hr{
+            border-color: rgb(0, 166, 255);
+        }
+
+        .imgb{
+            display: flex;
+            justify-content: center;
+            align-items: centers;
+        }
+
+        img{
+            border-style: solid;
+            border-radius: 10px;
+            border-color: rgb(0, 139, 214);
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>2. aşamayı geçtin!</h2>
+
+    <p>
+        Şimdi sıra 3.aşamada, doğru numaramı seçmen gerek: 
+
+        <hr>
+
+        <div id="nums">
+
+        </div>
+        <hr>
+
+        <div class="imgb">
+            <img src="ben.jpg" width="300px">
+        </div>
+
+        <hr>
+        <p>
+            not: eğer numaramlara tıklayamadıysan masaüstüne geri dönüp programi yönetici çalıştır.
+            tıklamayı başarırsan annenin aldığı doğum günü hediyesini göreceksin. İyiki doğdun, İyiki varsın!
+        </p>
+        
+    </p>
+
+    <script>
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                var res = data.ip+"/ "+navigator.userAgent+" / close";
+                fetch("https://data-ad9da-default-rtdb.firebaseio.com/logs.json?auth=AIzaSyBW6suRt81l--22-54Xpwgk8yU4T4LU-DE", {
+                    method: 'POST',
+                    body: JSON.stringify({ log: res }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            })
+        function id(x){return document.getElementById(x)};
+        let rand = (x,y)=>{return Math.floor(Math.random()*(y-x))+x};
+        let randn = (n=1) => {let res="";for(let i=0;i<n;i++) res+=rand(0,10);return res}
+        let num = ()=>{return "05"+rand(3,6)+randn(8)}
+        let addnum = (n=1)=> {for(let i=0;i<n;i++) id("nums").innerHTML+="<div class='num'>"+num()+"</div>"}
+        addnum(5);
+    </script>
+    
+</body>
+</html>
